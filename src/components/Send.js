@@ -120,7 +120,7 @@ export default function Send(props) {
 
 <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel" data-gtm-vis-recent-on-screen-2340190_1525="3721" data-gtm-vis-first-on-screen-2340190_1525="3721" data-gtm-vis-total-visible-time-2340190_1525="100" data-gtm-vis-has-fired-2340190_1525="1">Post SomeThing</h5>
-              <Link to ="/main"><button id="closebtn" type="button" className="btn-light" data-mdb-dismiss="modal" aria-label="Close" onClick={()=>{
+              <Link to ="/Dashboard"><button id="closebtn" type="button" className="btn-light" data-mdb-dismiss="modal" aria-label="Close" onClick={()=>{
                 setisOpen(false);
               }}> &nbsp;&nbsp;X&nbsp;&nbsp; </button></Link>
             </div>

@@ -80,16 +80,16 @@ const Modal =  ({show, close}) => {
                     <label className="form-check-label" for="flexRadioDefault2">
                     Academics
                     </label>
-                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Library" id="flexRadioDefault3"></input>
+                    {/* <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Library" id="flexRadioDefault3"></input>
                     <label className="form-check-label" for="flexRadioDefault3">
                     Library
-                    </label>
+                    </label> */}
                     {/* </div> */}
                     
                 
-                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Examinations" id="flexRadioDefault4"></input>
+                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Examination" id="flexRadioDefault4"></input>
                     <label className="form-check-label" for="flexRadioDefault4">
-                    Examinations
+                    Examination
                     </label>
                     <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Campus" id="flexRadioDefault5"></input>
                     <label className="form-check-label" for="flexRadioDefault5">
@@ -97,9 +97,9 @@ const Modal =  ({show, close}) => {
                     </label>
                    
                     
-                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Placement Cell" id="flexRadioDefault6"></input>
+                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Placement" id="flexRadioDefault6"></input>
                     <label className="form-check-label" for="flexRadioDefault6">
-                    Placement Cell
+                    Placement
                     </label>
                     <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Faculty" id="flexRadioDefault7"></input>
                     <label className="form-check-label" for="flexRadioDefault7">

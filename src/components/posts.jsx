@@ -6,6 +6,7 @@ import axios from 'axios';
 import Comment from "./Comment";
 import VoteCount from "./VoteCount";
 import CommentCount from "./CommentCount";
+import { Link } from 'react-router-dom'
 const Posts = (props) => {
     const [state, setState] = useState(false);
     const [idx, setidx] = useState(false);
@@ -241,13 +242,26 @@ const Posts = (props) => {
         getData()
     }, [props])
 
-    const a = 'http://localhost:3001/' + localStorage.getItem('pic');
+    const a = localStorage.getItem('pic');
        
     return (
         
         <div >
+            
             <Container>
-    
+                <Link to ="/Send">
+            <Sharebox>
+      <div>
+          <img 
+          src="/images/share.svg"
+          alt=""
+          />
+          <h2>Post Something</h2>
+          {/* <Link to ="/Send"><button><img src="/images/send.svg" height="20px" width="20px" alt=""/>Post</button>
+          </Link> */}
+      </div>
+      </Sharebox>
+      </Link>
       <div>
 {
        data && 
@@ -267,9 +281,9 @@ const Posts = (props) => {
                           <span className="subtitle">{findname(item.creator_email)}</span>
                       </div>
                   </a>
-                  <button>
+                  {/* <button>
                       <img src="/images/ellipsis.svg" alt=""/>
-                  </button>
+                  </button> */}
               </SharedActor>
               <Description>
                   {item.article}
@@ -329,7 +343,7 @@ const Posts = (props) => {
 const Container = styled.div`
   grid-area: main;
   position: relative;
-  top: 15vh;
+  top: 5vh;
   padding-left: 20px;
   width: 52vw;
   //z-index: -1;
@@ -349,13 +363,19 @@ const CommonCard = styled.div`
 const Sharebox= styled(CommonCard)`
   display: flex;
   flex-direction: column;
-  color: #958b7b;
+  /* color: #958b7b; */
+  
   margin: 0 0 8px;
-  background:white;
+  background:#4f16d3;
   border-radius:10px;
+  align-items:center;
+  justify-content:center;
+  color:white;
   div{
-      h1{
-          margin-left:20px;
+      h2{
+          text-decoration: none;
+          margin-top:10px;
+          margin-left:10px;
       }
       button{
           padding:10px 20px 10px 20px;
@@ -378,8 +398,8 @@ const Sharebox= styled(CommonCard)`
           align-items: center;
           padding: 8px 16px 8px 16px;
           img{
-              width:60px;
-              height:70px;
+              width:50px;
+              height:60px;
               border-radius:50%;
               margin-right :8px;
           }
@@ -388,10 +408,15 @@ const Sharebox= styled(CommonCard)`
               flex-grow: 1;
               border-radius:35px;
               padding-left:16px;
+              padding-right:16px;
               border: 1px solid rgba(0,0,0,0.15);
               border-radius: 35px;
               background-color: white;
               text-align: left;
+              img{
+                  width:20px;
+                  height:20px;
+              }
           }
       }
       &:nth-child(2){

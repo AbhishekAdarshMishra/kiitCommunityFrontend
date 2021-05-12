@@ -142,7 +142,7 @@ function SignIn() {
               localStorage.setItem('pic',"http://localhost:3001/"+decoded.pic);
               localStorage.setItem('postcount',decoded.postcount);
               
-              window.location.href="main";
+              window.location.href="Dashboard";
             }
             else{
                // alert(x.message);

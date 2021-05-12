@@ -153,7 +153,7 @@ const Container = styled.div`
   top: 0;
   width: 100vw;
   z-index: 1;
-  box-shadow : 2px 7px 15px #c5cae9;
+  box-shadow : 2px 7px 8px #a1a4b8;
 `;
 
 const Content = styled.div`
@@ -208,6 +208,12 @@ const Search = styled.div`
       border-color: #dce6f1;
       vertical-align: text-top;
     }
+  }
+  @media(max-width: 1200px){
+    margin-left:15vh;
+  }
+  @media(max-width: 600px){
+    margin-left:20vh;
   }
 `;
 

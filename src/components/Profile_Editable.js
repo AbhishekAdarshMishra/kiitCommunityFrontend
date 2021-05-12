@@ -202,7 +202,7 @@ export default function Profile_Editable(props) {
               {/* <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close" onClick={()=>{
                 setisOpen(false);
               }}></button> */}
-              <Link to ="/main"><button id="closebtn" type="button" className="btn-light" data-mdb-dismiss="modal" aria-label="Close" onClick={()=>{
+              <Link to ="/Dashboard"><button id="closebtn" type="button" className="btn-light" data-mdb-dismiss="modal" aria-label="Close" onClick={()=>{
                 setisOpen(false);
               }}> &nbsp;&nbsp;X&nbsp;&nbsp; </button></Link>
             </div>
