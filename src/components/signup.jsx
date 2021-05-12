@@ -133,7 +133,7 @@ function SignUp() {
             localStorage.setItem("mobno",y.mobno);
             localStorage.setItem("signupas",y.signupas);
             localStorage.setItem("pic","http://localhost:3001/"+y.pic);
-            window.location.href="main";
+            window.location.href="Dashboard";
           }
           else if(x.code===409){
             document.getElementById("mobcheck").innerHTML="User Already exist!";
