@@ -288,15 +288,7 @@ const Container = styled.div`
   max-width: 100%;
 `;
 const Lt = styled.div`
-  background:white;
-  margin-top:30px;
-  border-radius:15px;
-  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
-  @media(max-width: 1000px){
-    margin-top:10px;
-    background:transparent;
-    box-shadow:none;
-  }
+  
 `;
 const Content = styled.div`
   max-width: 1128px;
@@ -351,6 +343,19 @@ const Left = styled.div`
   position: sticky;
   margin-top:20px;
   position:fixed;
+  background:white;
+  margin-top:30px;
+  padding-right:50px;
+  border-radius:15px;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
+  @media(min-width: 1200px){
+    padding-right:100px;
+  }
+  @media(max-width: 1000px){
+    margin-top:10px;
+    background:transparent;
+    box-shadow:none;
+  }
   @media (max-width: 850px) {
     position:relative;
   }
