@@ -7,15 +7,14 @@ margin: 4rem auto;
 z-index: 1!important;
 }
 .post{
-    margin-top: -3vh;
     position: fixed;
-    background-color: rgb(243, 245, 242);
-    height: 15vh;
-    width : 52vw;
-    border: 2px solid rgb(243, 245, 242);
-    border-radius: 6px;
+    /* background-color: rgb(243, 245, 242); */
+    /* height: 15vh;
+    width : 52vw; */
+    /* border: 2px solid rgb(243, 245, 242); */
+    /* border-radius: 6px; */
     padding: 30px;
-    box-shadow: 5px 5px 15px #979595;
+    /* box-shadow: 5px 5px 15px #979595; */
 }
 .question{
     color: rgb(167, 165, 165);

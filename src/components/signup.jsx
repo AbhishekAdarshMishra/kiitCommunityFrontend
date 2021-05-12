@@ -64,7 +64,7 @@ function SignUp() {
     gender:"non",
     mobno:"",
     tag:"non",
-    postcount:"0",
+    postcount:0,
     check : ""
   })
     function handleInput(event){

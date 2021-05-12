@@ -13,6 +13,8 @@ import Navbar from './components/Navbar';
 import Profile_Editable from './components/Profile_Editable'
 import Profile from "./components/Profile";
 import Main from "./components/main";
+import Dashboard from './components/Dashboard';
+import Send from './components/Send';
 const App = () => {
   return (
     <div>
@@ -45,6 +47,7 @@ It is an online community to gain and share knowledge, designed especially for t
     <Route path="/signup" exact component={SignUp}/>
     <Route path="/login" exact component={Login}/>
     <Route path="/main"><Main /></Route>
+    <Route path="/Dashboard"><Dashboard /></Route>
     <Route path="/edit">
     <Main />
     <Profile_Editable email= {localStorage.getItem("email")} /> 
@@ -53,6 +56,11 @@ It is an online community to gain and share knowledge, designed especially for t
     <Main />
       <Profile email= {localStorage.getItem("email")}/>
       </Route>
+    <Route path= "/Send" exact >
+    <Main />
+      <Send email= {localStorage.getItem("email")}/>
+      </Route>
+    
     </Switch>
   </Router>  
   

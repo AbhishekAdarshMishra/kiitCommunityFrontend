@@ -10,6 +10,8 @@ const Header=(props)=>{
     const display_post = (e) => {
       setSearch(e.target.value);
 
+      props.onSelect(e.target.value);
+
       fetch('http://localhost:3001/post_get_title/'+e.target.value)
       .then(res => {
         return res.json();
@@ -76,7 +78,7 @@ const Header=(props)=>{
                 <Search>
                 <form id="form">
                 <div className="btn-group">
-                <input className="btn btn-secondary dropdown-toggle search" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="true" value={search} onChange={handleSearch} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search"/>
+                <input className="btn btn-secondary dropdown-toggle search " data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="true" value={search} onChange={handleSearch} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search"/>
 
     <ul className="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
     {
@@ -96,7 +98,7 @@ const Header=(props)=>{
     
       </form>
       <SearchIcon>
-                        <img src="/images/search-icon.svg" alt="" />
+                        {/* <img src="/images/search-icon.svg" alt="" /> */}
                     </SearchIcon>
                     </Search>
                 {/* <Search>

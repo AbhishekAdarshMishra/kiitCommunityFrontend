@@ -3,10 +3,10 @@ import "./posts.style.css"
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from 'axios';
-// import Comment from "./Comment";
-// import VoteCount from "./VoteCount"
-// import CommentCount from "./CommentCount"
-const Posts = () => {
+import Comment from "./Comment";
+import VoteCount from "./VoteCount";
+import CommentCount from "./CommentCount";
+const Posts = (props) => {
     const [state, setState] = useState(false);
     const [idx, setidx] = useState(false);
     const [data, setData] = useState([]);
@@ -15,137 +15,240 @@ const Posts = () => {
     const [com, setCom] = useState("");
     const [chk, setChk] = useState(false);
 
-    // function checklike(postemail, postid) {
-    //     const url = "http://127.0.0.1:3001/vote_get_postemail_postid_voter/" + localStorage.getItem('email') + "/" + postemail + "/" + postid;
-    //     axios.get(url).then(response => {
-    //         //console.log(response.data.vote.length+"votteeeee");
-    //         if (response.data.vote.length > 0) {
-    //             setChk(true);
-    //         }
-    //         else {
-    //             setChk(false);
-    //         }
-    //     })
+    function checklike(postemail, postid) {
+        const url = "http://127.0.0.1:3001/vote_get_postemail_postid_voter/" + localStorage.getItem('email') + "/" + postemail + "/" + postid;
+        axios.get(url).then(response => {
+            //console.log(response.data.vote.length+"votteeeee");
+            if (response.data.vote.length > 0) {
+                setChk(true);
+            }
+            else {
+                setChk(false);
+            }
+        })
 
-    // }
+    }
 
-    // function handleCom(postemail, postid) {
-    //     const newcom = {
+    function handleCom(postemail, postid) {
+        const newcom = {
 
-    //         "comment_email": localStorage.getItem('email'),
-    //         "post_email": postemail,
-    //         "post_id": postid,
-    //         "commenttxt": com
+            "comment_email": localStorage.getItem('email'),
+            "post_email": postemail,
+            "post_id": postid,
+            "commenttxt": com
 
-    //     }
-    //     axios.post('http://localhost:3001/comment', newcom)
-    //         .then(response => {
-    //             if (response.data.code === 200) {
-    //                 window.location.reload(false);
-    //             }
-    //         })
-    // }
+        }
+        axios.post('http://localhost:3001/comment', newcom)
+            .then(response => {
+                if (response.data.code === 200) {
+                    window.location.reload(false);
+                }
+            })
+    }
 
-    // function handleLike(post_email, post_id) {
-    //     const vot = {
-    //         "voter_email": localStorage.getItem('email'),
-    //         "post_email": post_email,
-    //         "post_id": post_id,
-    //         "rating": "5"
-    //     }
-    //     console.log(vot);
-    //     const url = "http://localhost:3001/vote";
+    function handleLike(post_email, post_id) {
+        const vot = {
+            "voter_email": localStorage.getItem('email'),
+            "post_email": post_email,
+            "post_id": post_id,
+            "rating": "5"
+        }
+        console.log(vot);
+        const url = "http://localhost:3001/vote";
 
-    //     checklike(post_email, post_id);
-    //     if (!chk) {
-    //         axios.post(url, vot).then(response => {
-    //             if (response.data.code === 200) {
-    //                 window.location.reload(false);
-    //             }
-    //         });
-    //     }
-    // }
-    // function handleShow() {
+        checklike(post_email, post_id);
+        if (!chk) {
+            axios.post(url, vot).then(response => {
+                if (response.data.code === 200) {
+                    window.location.reload(false);
+                }
+            });
+        }
+    }
+    function handleShow() {
 
-    //     setState(true);
-    // };
+        setState(true);
+    };
 
-    // function handleHide() {
-    //     setState(false);
-    // };
+    function handleHide() {
+        setState(false);
+    };
 
-    // function handleShowHide(index) {
-    //     if (state) {
-    //         setidx(null);
-    //         handleHide();
-    //     }
-    //     else {
-    //         setidx(index);
-    //         handleShow();
-    //     }
+    function handleShowHide(index) {
+        if (state) {
+            setidx(null);
+            handleHide();
+        }
+        else {
+            setidx(index);
+            handleShow();
+        }
 
-    // }
+    }
 
-    // function findname(email) {
-    //     console.log(email)
-    //     const url = "http://127.0.0.1:3001/register_get_email/" + email;
-    //     fetch(url)
-    //         .then(function (response) {
-    //             return response.json();
-    //         })
-    //         .then(function (myJson) {
-    //             if (myJson.user[0]) {
-    //                 console.log(myJson.user[0].name + " " + myJson.user[0].pic)
-    //                 setName(myJson.user[0].name)
-    //                 setPic(myJson.user[0].pic)
-    //             }
-    //         })
-    //     return name;
-    // }
+    function findname(email) {
+        console.log(email)
+        const url = "http://127.0.0.1:3001/register_get_email/" + email;
+        fetch(url)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                if (myJson.user[0]) {
+                    console.log(myJson.user[0].name + " " + myJson.user[0].pic)
+                    setName(myJson.user[0].name)
+                    setPic(myJson.user[0].pic)
+                }
+            })
+        return name;
+    }
 
-    // function findpic(email) {
-    //     console.log(email)
-    //     const url = "http://127.0.0.1:3001/register_get_email/" + email;
-    //     fetch(url)
-    //         .then(function (response) {
-    //             return response.json();
-    //         })
-    //         .then(function (myJson) {
-    //             if (myJson.user[0]) {
-    //                 console.log(myJson.user[0].name + " " + myJson.user[0].pic)
-    //                 setName(myJson.user[0].name)
-    //                 setPic(myJson.user[0].pic)
-    //             }
-    //         })
-    //     return "http://localhost:3001/" + pic;
-    // }
+    function findpic(email) {
+        console.log(email)
+        const url = "http://127.0.0.1:3001/register_get_email/" + email;
+        fetch(url)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                if (myJson.user[0]) {
+                    console.log(myJson.user[0].name + " " + myJson.user[0].pic)
+                    setName(myJson.user[0].name)
+                    setPic(myJson.user[0].pic)
+                }
+            })
+        return "http://localhost:3001/" + pic;
+    }
 
 
 
     const getData = () => {
+        if(props.select==='-1')
+        {
         fetch("http://127.0.0.1:3001/post_get")
             .then(function (response) {
                 // console.log(response)
                 return response.json();
             })
             .then(function (myJson) {
-                // console.log(myJson);
+                 console.log(myJson);
                 setData(myJson.post)
             });
+        }
+        else if(props.select==='10'){
+            fetch("http://127.0.0.1:3001/post_get")
+            .then(function (response) {
+                // console.log(response)
+                return response.json();
+            })
+            .then(function (myJson) {
+                 console.log(myJson);
+                setData(myJson.post)
+            });
+        } 
+        else if(props.select==='0'){
+            fetch("http://127.0.0.1:3001/post_get_tag/Academics")
+            .then(function (response) {
+                // console.log(response)
+                return response.json();
+            })
+            .then(function (myJson) {
+                 console.log(myJson);
+                setData(myJson.post)
+            });
+        }  
+        else if(props.select==='1'){
+            fetch("http://127.0.0.1:3001/post_get_tag/Admissions")
+            .then(function (response) {
+                console.log(response)
+                return response.json();
+            })
+            .then(function (myJson) {
+                 console.log(myJson);
+                setData(myJson.post)
+            });
+        }
+        else if(props.select==='2'){
+            fetch("http://127.0.0.1:3001/post_get_tag/Campus")
+            .then(function (response) {
+                console.log(response)
+                return response.json();
+            })
+            .then(function (myJson) {
+                 console.log(myJson);
+                setData(myJson.post)
+            });
+        }
+        else if(props.select==='3'){
+            fetch("http://127.0.0.1:3001/post_get_tag/Hostel")
+            .then(function (response) {
+                console.log(response)
+                return response.json();
+            })
+            .then(function (myJson) {
+                 console.log(myJson);
+                setData(myJson.post)
+            });
+        }
+        else if(props.select==='4'){
+            fetch("http://127.0.0.1:3001/post_get_tag/Faculty")
+            .then(function (response) {
+                console.log(response)
+                return response.json();
+            })
+            .then(function (myJson) {
+                 console.log(myJson);
+                setData(myJson.post)
+            });
+        }
+        else if(props.select==='5'){
+            fetch("http://127.0.0.1:3001/post_get_tag/Placement")
+            .then(function (response) {
+                console.log(response)
+                return response.json();
+            })
+            .then(function (myJson) {
+                 console.log(myJson);
+                setData(myJson.post)
+            });
+        }
+        else if(props.select==='6'){
+            fetch("http://127.0.0.1:3001/post_get_tag/Examination")
+            .then(function (response) {
+                console.log(response)
+                return response.json();
+            })
+            .then(function (myJson) {
+                 console.log(myJson);
+                setData(myJson.post)
+            });
+        }
+        else{
+            console.log('iiiiiiiii2222'+props.select);
+            fetch('http://localhost:3001/search_bar/'+props.select)
+            .then(function (response) {
+                console.log(response)
+                return response.json();
+            })
+            .then(function (myJson) {
+                 console.log(myJson);
+                setData(myJson.post)
+            });
+        }
     }
 
     useEffect(() => {
         getData()
-    }, [])
+    }, [props])
 
     const a = 'http://localhost:3001/' + localStorage.getItem('pic');
        
     return (
-            
+        
+        <div >
             <Container>
     
       <div>
-
 {
        data && 
        data.length>0 && 
@@ -154,13 +257,14 @@ const Posts = () => {
         
         (item,index)=>
          <Article>
+
               <SharedActor>
                   <a>
-                      {/* <img src={findpic(item.creator_email)} alt=""/> */}
+                      <img src={findpic(item.creator_email)} alt=""/>
                       <div>
                           <span className="title">{item.title}</span>
                           <span className="subtitle">{item.tag}</span>
-                          {/* <span className="subtitle">{findname(item.creator_email)}</span> */}
+                          <span className="subtitle">{findname(item.creator_email)}</span>
                       </div>
                   </a>
                   <button>
@@ -172,14 +276,14 @@ const Posts = () => {
               </Description>
     
               
-              {/* <SocialActions>
+              <SocialActions>
               <button onClick={()=>handleLike(item.creator_email,item.postid)}>
-                    {checklike(item.creator_email,item.postid)}
+                    {()=>checklike(item.creator_email,item.postid)}
                     {   
                       <img src="/images/like2.svg"  alt=""/>
                       }
                   <span>{   
-                      chk?<span>Liked</span>:<span>Like</span>
+                      chk?<span>Already Liked</span>:<span>Like</span>
                       }
                       <VoteCount mail={item.creator_email} postid={item.postid}/>*
                       </span>
@@ -190,10 +294,10 @@ const Posts = () => {
               </button>
 
 
-              </SocialActions> */}
+              </SocialActions>
 
               
-                  {/* {state&&idx==index?<Comments>
+                  {state&&idx==index?<Comments>
                       <InputComment>
                             <Form  >
                             <Input
@@ -210,21 +314,26 @@ const Posts = () => {
                       <Comment mail={item.creator_email} postid={item.postid}/>
                       </Comments>:console.log('cant'+index+idx)}
                    
-               */}
+              
              
           </Article>
             )  
         }
       </div>
   </Container>
+  </div>
         
     )
 }
 
 const Container = styled.div`
   grid-area: main;
- // position: relative;
-  //display:flex;
+  position: relative;
+  top: 15vh;
+  padding-left: 20px;
+  width: 52vw;
+  //z-index: -1;
+ 
 `;
 const CommonCard = styled.div`
     text-align:center;

@@ -18,43 +18,55 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowRightSharpIcon from '@material-ui/icons/ArrowRightSharp';
-import "./main.styles.css"
+//import "./main.styles.css"
 import Feed from "./feed";
 import ChevronLeftRoundedIcon from '@material-ui/icons/ChevronLeftRounded';
-import Sidecard from "./Sidecard";
+import Sidecard2 from "./Sidecard2";
 import Othercards from "./Othercards";
 import Adver from "./Adver"
 import Header from './Header';
 import Post from './posts';
 import Ask from './Ask'
-function Main () {
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
-  const [selectedIndex, setSelectedIndex] = React.useState('-1');
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    //flexGrow: 1,
+    //width: '100%',
+    //maxWidth: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+  paper: {
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
+
+function Dashboard () {
+    const classes = useStyles();
+    const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
-
-  const handleSearchGet = (newvalue)=>{
-    setSelectedIndex(newvalue);
-    console.log('iiiiiiiiiii'+selectedIndex);
-  }
-    return (
-        <div>
-          <Header value={selectedIndex} onSelect={handleSearchGet} />
-          {/* <Navbar name={localStorage.getItem('Name')}/> */}
-            <div className="Card">
-            <Sidecard /><br/>
+  function FormRow() {
+      return(
+      <React.Fragment>
+        <Grid item sm={3} xs={12} >
+          <Paper className={classes.paper}  id="re">
+            <div>
+            <Sidecard2 />
             </div>
-            <div className="sidebar">
+            <br/>
             
-            <ListItem>
-      
-      <ListItemText className="y" >Categories</ListItemText><ChevronLeftRoundedIcon className="x" />
-    </ListItem>
-    <Divider className="x"/>
-            
-             <ListItem
+            <div className={classes.root}>
+            <List component="nav" aria-label="main mailbox folders" >
+         <ListItem
             button
             selected={selectedIndex === '10'}
             onClick={(event) => handleListItemClick(event, '10')}>       
@@ -120,19 +132,39 @@ function Main () {
       </ListItemIcon>
       <ListItemText primary="Examination" />
     </ListItem>
-</div>
-        {/* <Feed item={selectedIndex} /> */}
-        <div className="feed">
-          <div className="ask">
-            {/* <Ask/> */}
-          </div>
-          
-          <Post select={selectedIndex}/>
-          </div>
-        <Othercards />
-        <Adver />
-        </div>
-    )
+      </List></div>
+          </Paper>
+        </Grid>
+        
+        <Grid item xs={12} sm={3}>
+          <Paper className={classes.paper}>
+          {/* <Feed />
+           */}
+           <br/>
+           <br />
+           <br />
+           Ayush
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <Paper className={classes.paper}>
+          {/* <Othercards /> */}
+          </Paper>
+        </Grid>
+      </React.Fragment>
+      );
+  }
+  return(
+      <div>
+          <Header />
+          <div className={classes.root}>
+      <Grid container spacing={1}>
+        <Grid container item xs={12} spacing={3}>
+          <FormRow />
+        </Grid>
+      </Grid>
+     </div>
+     </div>
+  );
 }
-
-export default Main
+export default Dashboard;

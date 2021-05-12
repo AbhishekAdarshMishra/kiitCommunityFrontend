@@ -1,37 +1,15 @@
 import React, { useState , useEffect} from 'react'
 import "./Profile_style.css";
+import './Modal.css';
 import { Link } from "react-router-dom";
 import Modal from 'react-modal';
+import axios from 'axios';
 
-export default function Profile(props) {
+export default function Send(props) {
 
     
 
-    // const [name,setName]=useState(props.name);
-    // const [email,setEmail]=useState(props.email);
-    // const [password,setPassword]=useState(props.password);
-    // const [gender,setGender]=useState(props.gender);
-    // const [bio,setBio]=useState(props.bio);
-    // const [year,setYear]=useState(props.year);
-    // const [signupas,setSignupas]=useState(props.signupas);
-    // const [pic,setPic]=useState(props.pic);
-    // const [tag,setTag]=useState(props.tag);
-    // const [__v,set__V]=useState(props.__v);
-    // const [id,setId]=useState(props.id);
-    // const [mobile,setMobile]=useState(props.mobile);
-
-    const [name,setName]=useState('Loading..');
-    const [email,setEmail]=useState('Loading..');
-    const [password,setPassword]=useState('Loading..');
-    const [gender,setGender]=useState('Loading..');
-    const [bio,setBio]=useState('Loading..');
-    const [year,setYear]=useState('Loading..');
-    const [signupas,setSignupas]=useState('Loading..');
-    const [pic,setPic]=useState('Loading..');
-    const [tag,setTag]=useState('Loading..');
-    const [__v,set__V]=useState('Loading..');
-    const [id,setId]=useState('Loading..');
-    const [mobile,setMobile]=useState('Loading..');
+   
     
     const [fetch_status,setfetch_status]=useState(false);
 
@@ -61,35 +39,68 @@ export default function Profile(props) {
   
       const [isOpen, setisOpen] = useState(true);
 
-    useEffect(() => {
-        console.log('use effect ran');
-        
-        fetch('http://localhost:3001/register_get_email/'+props.email)
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            setName(data.user[0].name);
-            setEmail(data.user[0].email);
-            setGender(data.user[0].gender);
-            setId(data.user[0].id);
-            setMobile(data.user[0].mobno);
-            setPassword(data.user[0].password);
-            setPic("http://localhost:3001/"+data.user[0].pic);
-            //setPic(data.user[0].pic);
-            setTag(data.user[0].tag);
-            setYear(data.user[0].year);
-            set__V(data.user[0].__v);
-            setBio(data.user[0].bio);
-            setSignupas(data.user[0].signupas);
-            console.log(data);
-
-            setfetch_status(true);
-            
-            
-          })
-      }, [])
     
+      const [input,setInput]= useState({ 
+        creator_email :localStorage.getItem('email'),
+        title : "",
+        tag :"",
+        article:"",
+        postid:localStorage.getItem('postcount'),
+      })
+
+        function onChange(event){
+          const {name, value} = event.target;
+          console.log("Event ");
+          console.log(event);
+          console.log(event.target);
+    
+          setInput(prevInput => {
+            return {
+              ...prevInput,
+              [name]:value
+            }
+          })
+         
+        }
+    
+        function handleSubmit(event){
+            event.preventDefault();
+            console.log(input);
+            const newRecord ={
+              
+              creator_email : input.creator_email,
+              title : input.title,
+              tag : input.tag,
+              article : input.article, 
+              postid:input.postid, 
+            }
+            axios.post('http://localhost:3001/post',newRecord)
+            .then(response => {
+              var x= response;
+              if(x.data.code===200)
+              {
+                  var pass=[
+                      {"propName": "postcount","value":(parseInt(localStorage.getItem("postcount"))+1)},
+                  ];
+                  console.log(pass);
+                  var ur='http://localhost:3001/register_update/'+localStorage.getItem('email');
+                  axios.post(ur,pass)
+                    .then(res => {
+                        var u= res;
+                        if(res.data.nModified>0)
+                        {
+                            localStorage.setItem('postcount',(parseInt(localStorage.getItem('postcount'))+1));
+                        }
+                        console.log(u);
+                        
+            })
+              }
+              
+              console.log(x);
+            })
+            document.getElementById('closebtn').click();
+            //close();
+        }
     
 
       
@@ -108,7 +119,7 @@ export default function Profile(props) {
         }}>
 
 <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel" data-gtm-vis-recent-on-screen-2340190_1525="3721" data-gtm-vis-first-on-screen-2340190_1525="3721" data-gtm-vis-total-visible-time-2340190_1525="100" data-gtm-vis-has-fired-2340190_1525="1">My Profile 😊 </h5>
+              <h5 class="modal-title" id="exampleModalLabel" data-gtm-vis-recent-on-screen-2340190_1525="3721" data-gtm-vis-first-on-screen-2340190_1525="3721" data-gtm-vis-total-visible-time-2340190_1525="100" data-gtm-vis-has-fired-2340190_1525="1">Post SomeThing</h5>
               <Link to ="/main"><button id="closebtn" type="button" className="btn-light" data-mdb-dismiss="modal" aria-label="Close" onClick={()=>{
                 setisOpen(false);
               }}> &nbsp;&nbsp;X&nbsp;&nbsp; </button></Link>
@@ -116,16 +127,75 @@ export default function Profile(props) {
 
 
             <div className="container emp-profile">
-            <form method="post">
+                <div className="modal-content">
+                <div className="modal-body">
+                    <div className="form-group">
+                    <label for="usr">Title <span className="star">*</span></label>
+                    <input type="text" className="form-control" id="usr" name="title"
+                    onChange={ onChange } value={input.title} required></input>
+                    </div>
+                    <div className="form-group">
+                    <label for="comment">Ask your Question / Post an article <span className="star">*</span></label>
+                    <textarea className="form-control" rows="4" id="comment" name="article"
+                    onChange={ onChange } value={input.articles} placeholder="Ask your question or post an article i.e, It can contain links." required></textarea>
+                    </div> 
+                    <div className="form-group">
+                    <label>Select Category <span className="star">*</span></label>
+                    {/* <div className="form-check">  */}
+            
+                    <input className="form-check-input" type="radio"  name="tag" onChange={ onChange } value="Admissions" id="flexRadioDefault1"></input>
+                    <label className="form-check-label" for="flexRadioDefault1">
+                    Admissions
+                    </label>
+                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Academics" id="flexRadioDefault2"></input>
+                    <label className="form-check-label" for="flexRadioDefault2">
+                    Academics
+                    </label>
+                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Library" id="flexRadioDefault3"></input>
+                    <label className="form-check-label" for="flexRadioDefault3">
+                    Library
+                    </label>
+                    {/* </div> */}
+                    
+                
+                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Examinations" id="flexRadioDefault4"></input>
+                    <label className="form-check-label" for="flexRadioDefault4">
+                    Examinations
+                    </label>
+                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Campus" id="flexRadioDefault5"></input>
+                    <label className="form-check-label" for="flexRadioDefault5">
+                    Campus
+                    </label>
+                   
+                    
+                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Placement Cell" id="flexRadioDefault6"></input>
+                    <label className="form-check-label" for="flexRadioDefault6">
+                    Placement Cell
+                    </label>
+                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Faculty" id="flexRadioDefault7"></input>
+                    <label className="form-check-label" for="flexRadioDefault7">
+                    Faculty
+                    </label>
+                    <input className="form-check-input" type="radio" name="tag" onChange={ onChange } value="Hostel" id="flexRadioDefault8"></input>
+                    <label className="form-check-label" for="flexRadioDefault8">
+                    Hostel
+                    </label>
+                    
+                    
+                    </div>
+                    </div>
+            <div className="modal-footer">
+               <button type="submit" onClick={handleSubmit} className="btn-success">Submit</button>
+                {/* <button onClick={close} className="btn-cancel">Close</button> */}
+            </div>
+        </div>
+            {/* <form method="post">
                 <div className="row">
                     <div className="col-md-4">
                         <div className="profile-img">
-                        {/* "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" */}
+                       
                             <img src={pic}  alt="error"/>
-                            {/* <div className="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" name="file"/>
-                            </div> */}
+                            
                         </div>
                     </div>
                     <div className="col-md-6">
@@ -141,9 +211,6 @@ export default function Profile(props) {
                                 <li className="nav-item">
                                     <a className="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                 </li>
-                                {/* <li className="nav-item">
-                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Bio</a>
-                                </li> */}
                             </ul>
                         </div>
                     </div>
@@ -174,14 +241,6 @@ export default function Profile(props) {
                                                 <p>{email}</p>
                                             </div>
                                         </div>
-                                        {/* <div className="row">
-                                            <div className="col-md-6">
-                                                <label>Password</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>{password}</p>
-                                            </div>
-                                        </div> */}
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <label>Gender</label>
@@ -239,7 +298,7 @@ export default function Profile(props) {
                         </div>
                     </div>
                 </div>
-            </form>           
+            </form>            */}
         </div>
         </Modal>
         </div>

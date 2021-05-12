@@ -140,6 +140,8 @@ function SignIn() {
               localStorage.setItem('signupas',decoded.signupas);
               localStorage.setItem('mobno',decoded.mobno);
               localStorage.setItem('pic',"http://localhost:3001/"+decoded.pic);
+              localStorage.setItem('postcount',decoded.postcount);
+              
               window.location.href="main";
             }
             else{

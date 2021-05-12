@@ -193,7 +193,8 @@ export default function Profile_Editable(props) {
     return (
       <div>
         <Modal  style={customStyles} contentLabel="Example Modal" isOpen={isOpen} onRequestClose={()=>{
-          setisOpen(false);
+          //setisOpen(false);
+          document.getElementById('closebtn').click();
         }}>
 
         <div className="modal-header">
@@ -201,9 +202,9 @@ export default function Profile_Editable(props) {
               {/* <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close" onClick={()=>{
                 setisOpen(false);
               }}></button> */}
-              <Link to ="/main"><button type="button" className="btn-close" data-mdb-dismiss="modal" aria-label="Close" onClick={()=>{
+              <Link to ="/main"><button id="closebtn" type="button" className="btn-light" data-mdb-dismiss="modal" aria-label="Close" onClick={()=>{
                 setisOpen(false);
-              }}></button></Link>
+              }}> &nbsp;&nbsp;X&nbsp;&nbsp; </button></Link>
             </div>
 
 

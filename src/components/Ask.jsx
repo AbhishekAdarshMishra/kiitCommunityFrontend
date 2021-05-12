@@ -9,9 +9,9 @@ const Ask = () => {
         <div>
            
         <div className="post">
-        <p className="question">What is your question or link ?</p>
+        {/* <p className="question">What is your question or link ?</p> */}
         {show ? <div onClick={closeModalHandler} className="back-drop"></div> : null }
-        <button onClick ={() => setShow(true)} className="btn-openModal">Ask Question</button>
+        <button onClick ={() => setShow(true)} className="btn-openModal">POST</button>
           <Modal show={show} close={closeModalHandler}/>
           </div>
           </div>
