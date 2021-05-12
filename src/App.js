@@ -15,6 +15,7 @@ import Profile from "./components/Profile";
 import Main from "./components/main";
 import Dashboard from './components/Dashboard';
 import Send from './components/Send';
+import Front from './components/Front';
 const App = () => {
   return (
     <div>
@@ -25,6 +26,7 @@ const App = () => {
     <Route path ="/" exact render={
       () =>{
         return(
+          <div>
           <div className="image_div">
             <span><img src="/images/Kiit.png" alt="icon pic" /></span>
             <div>
@@ -40,6 +42,7 @@ It is an online community to gain and share knowledge, designed especially for t
             <OutlinedButtons />
             <ContainedButtons />
             </div>
+        </div>
         </div>
         );
       }
